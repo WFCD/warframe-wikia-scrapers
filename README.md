@@ -1,0 +1,1 @@
+warframe-wikia-scraper
