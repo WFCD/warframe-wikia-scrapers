@@ -1,0 +1,21 @@
+{
+  "name": "warframe-wikia-scraper",
+  "version": "1.0.0",
+  "description": "Scrapes lua files on the Warframe wiki for the latest warframe, weapon and mod data, and outputs JSON files to be used with the warframe-world-status API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Dadabo",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "cheerio": "^1.0.0-rc.2",
+    "fs-extra": "^5.0.0",
+    "lua.vm.js": "^0.0.1",
+    "node-cmd": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0"
+  }
+}
