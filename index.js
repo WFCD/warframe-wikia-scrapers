@@ -17,6 +17,7 @@ const getLuaWeaponData = async () => {
   } catch (err) {
     console.error('Failed to fetch latest weapon data:');
     console.error(err);
+    return '';
   }
 };
 
@@ -45,7 +46,14 @@ const convertWeaponDataToJson = async (luaWeapondata) => {
   });
 
   try {
-    await new Promise(resolve => cmd.get('lua ./tmp/weapondataToJson.lua > ./tmp/weapondataraw.json', () => resolve()));
+    await new Promise((resolve, reject) => cmd.get('lua ./tmp/weapondataToJson.lua > ./tmp/weapondataraw.json', (err) => {
+      if (!err) {
+        resolve();
+      } else {
+        reject(err);
+        throw (new Error(err));
+      }
+    }));
   } catch (err) {
     console.error('Failed to execute modified lua script:');
     console.error(err);
@@ -96,6 +104,7 @@ const getWeaponImageUrls = async (weapons) => {
   } catch (err) {
     console.error('Failed to fetch image URLs:');
     console.error(err);
+    return [];
   }
 };
 
