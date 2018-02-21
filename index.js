@@ -10,9 +10,14 @@ const transformWeapon = require('./transformWeapon');
 let imageUrls;
 
 const getLuaWeaponData = async () => {
-  const { data } = await axios.get('http://warframe.wikia.com/wiki/Module:Weapons/data?action=edit');
-  const $ = cheerio.load(data);
-  return $('#wpTextbox1').text();
+  try {
+    const { data } = await axios.get('http://warframe.wikia.com/wiki/Module:Weapons/data?action=edit');
+    const $ = cheerio.load(data);
+    return $('#wpTextbox1').text();
+  } catch (err) {
+    console.error('Failed to fetch latest weapon data:');
+    console.error(err);
+  }
 };
 
 const convertWeaponDataToJson = async (luaWeapondata) => {
@@ -39,7 +44,12 @@ const convertWeaponDataToJson = async (luaWeapondata) => {
     flag: 'w',
   });
 
-  await new Promise(resolve => cmd.get('lua ./tmp/weapondataToJson.lua > ./tmp/weapondataraw.json', () => resolve()));
+  try {
+    await new Promise(resolve => cmd.get('lua ./tmp/weapondataToJson.lua > ./tmp/weapondataraw.json', () => resolve()));
+  } catch (err) {
+    console.error('Failed to execute modified lua script:');
+    console.error(err);
+  }
   const weapondataRaw = await fs.readFile('./tmp/weapondataraw.json', 'UTF-8');
   return weapondataRaw;
 };
@@ -67,21 +77,26 @@ const getWeaponImageUrls = async (weapons) => {
       },
     }));
 
-  const fetchedImageUrls = await Promise.all(urlRequests).then((res) => {
-    const urls = {};
-    res.forEach(({ data }) => {
-      Object.keys(data.query.pages).forEach((id) => {
-        if (id > -1) {
-          const title = data.query.pages[id].title.replace('File:', '');
-          const { url } = data.query.pages[id].imageinfo[0];
-          urls[title] = url;
-        }
+  try {
+    const fetchedImageUrls = await Promise.all(urlRequests).then((res) => {
+      const urls = {};
+      res.forEach(({ data }) => {
+        Object.keys(data.query.pages).forEach((id) => {
+          if (id > -1) {
+            const title = data.query.pages[id].title.replace('File:', '');
+            const { url } = data.query.pages[id].imageinfo[0];
+            urls[title] = url;
+          }
+        });
       });
+      return urls;
     });
-    return urls;
-  });
 
-  return fetchedImageUrls;
+    return fetchedImageUrls;
+  } catch (err) {
+    console.error('Failed to fetch image URLs:');
+    console.error(err);
+  }
 };
 
 async function main() {
