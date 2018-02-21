@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris Dadabo",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "dependencies": {
     "axios": "^0.17.1",
     "cheerio": "^1.0.0-rc.2",
