@@ -22,6 +22,9 @@ describe('Output file', () => {
       assert.fail(err);
     }
   });
+
+  after(() => {
+    console.log();
+    console.dir(weaponData[0]);
+  });
 });
-console.log();
-console.dir(weaponData[0]);
