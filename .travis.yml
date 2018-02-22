@@ -3,5 +3,3 @@ node_js:
   - "node"
 before_install:
   - sudo apt-get install lua5.2
-script:
-  - node index.js

@@ -16,6 +16,7 @@ describe('Output file', () => {
 
     try {
       const weaponData = JSON.parse(weaponDataRaw);
+      console.dir(weaponData[0]);
       assert.typeOf(weaponData[0], 'object', 'json ');
     } catch (err) {
       assert.fail(err);
