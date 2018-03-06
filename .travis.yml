@@ -7,5 +7,5 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 after_success:
   - chmod +x .travis/push.sh
-  - ./travis/push.sh
+  - ./.travis/push.sh
 cache: yarn
