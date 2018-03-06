@@ -65,11 +65,16 @@ const transformWeapon = (oldWeapon, imageUrls) => {
     ...NoiseLevel && { noise: NoiseLevel },
     riven_disposition: Disposition,
     crit_chance: NormalAttack && NormalAttack.CritChance && Number((Number(NormalAttack.CritChance) * 100).toFixed(2)),
-    crit_mult: NormalAttack && NormalAttack.CritMultiplier && Number(Number(NormalAttack.CritMultiplier).toFixed(1)),
-    status_chance: NormalAttack && NormalAttack.StatusChance && Number((Number(NormalAttack.StatusChance) * 100).toFixed(2)),
-    ...(ChargeAttack && ChargeAttack.CritChance) && { crit_chance: Number((Number(ChargeAttack.CritChance) * 100).toFixed(2)) },
-    ...(ChargeAttack && ChargeAttack.CritMultiplier) && { crit_mult: Number(Number(ChargeAttack.CritMultiplier).toFixed(2)) },
-    ...(ChargeAttack && ChargeAttack.StatusChance) && { status_chance: Number((Number(ChargeAttack.StatusChance) * 100).toFixed(2)) },
+    crit_mult: NormalAttack && NormalAttack.CritMultiplier 
+      && Number(Number(NormalAttack.CritMultiplier).toFixed(1)),
+    status_chance: NormalAttack && NormalAttack.StatusChance
+      && Number((Number(NormalAttack.StatusChance) * 100).toFixed(2)),
+    ...(ChargeAttack && ChargeAttack.CritChance)
+      && { crit_chance: Number((Number(ChargeAttack.CritChance) * 100).toFixed(2)) },
+    ...(ChargeAttack && ChargeAttack.CritMultiplier)
+      && { crit_mult: Number(Number(ChargeAttack.CritMultiplier).toFixed(2)) },
+    ...(ChargeAttack && ChargeAttack.StatusChance)
+      && { status_chance: Number((Number(ChargeAttack.StatusChance) * 100).toFixed(2)) },
     polarities: Polarities,
     thumbnail: imageUrls[Image],
     speed: NormalAttack && NormalAttack.FireRate,
@@ -77,9 +82,12 @@ const transformWeapon = (oldWeapon, imageUrls) => {
     ...Accuracy && { accuracy: Accuracy },
     ...Magazine && { magazine: Magazine },
     ...Reload && { reload: Reload },
-    ...(NormalAttack && NormalAttack.ShotType) && { projectile: NormalAttack.ShotType.replace('Hit-scan', 'Hitscan') },
-    ...(ChargeAttack && ChargeAttack.ShotType) && { projectile: ChargeAttack.ShotType.replace('Hit-scan', 'Hitscan') },
-    ...(NormalAttack && NormalAttack.FireRate) && { rate: Number(NormalAttack.FireRate.toFixed(1)) },
+    ...(NormalAttack && NormalAttack.ShotType)
+      && { projectile: NormalAttack.ShotType.replace('Hit-scan', 'Hitscan') },
+    ...(ChargeAttack && ChargeAttack.ShotType)
+      && { projectile: ChargeAttack.ShotType.replace('Hit-scan', 'Hitscan') },
+    ...(NormalAttack && NormalAttack.FireRate)
+      && { rate: Number(NormalAttack.FireRate.toFixed(1)) },
   };
 
   if (NormalAttack) {
@@ -137,7 +145,7 @@ const transformWeapon = (oldWeapon, imageUrls) => {
       slide: `${SlideAttack}${SlideElement ? ELEMENTS[SlideElement] : undefined}`,
       jump: `${JumpAttack}${JumpElement ? ELEMENTS[JumpElement] : undefined}`,
       wall: `${WallAttack}${WallElement ? ELEMENTS[WallElement] : undefined}`,
-      channeling: ChannelMult ? ChannelMult : 1.5,
+      channeling: ChannelMult || 1.5,
     };
   }
 
