@@ -3,7 +3,7 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
   setup_git() {
     git config --global user.email "travis@travis-ci.org"
     git config --global user.name "Travis CI"
-    git clonehttps://github.com/WFCD/warframe-worldstate-data.git
+    git clone https://github.com/WFCD/warframe-worldstate-data.git
     cd warframe-worldstate-data
     git checkout -b travis-$TRAVIS_BUILD_NUMBER
   }
