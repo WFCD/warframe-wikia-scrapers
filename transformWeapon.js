@@ -64,8 +64,9 @@ const transformWeapon = (oldWeapon, imageUrls) => {
     subtype: Class,
     ...NoiseLevel && { noise: NoiseLevel },
     riven_disposition: Disposition,
-    crit_chance: NormalAttack && NormalAttack.CritChance && Number((Number(NormalAttack.CritChance) * 100).toFixed(2)),
-    crit_mult: NormalAttack && NormalAttack.CritMultiplier 
+    crit_chance: NormalAttack && NormalAttack.CritChance
+      && Number((Number(NormalAttack.CritChance) * 100).toFixed(2)),
+    crit_mult: NormalAttack && NormalAttack.CritMultiplier
       && Number(Number(NormalAttack.CritMultiplier).toFixed(1)),
     status_chance: NormalAttack && NormalAttack.StatusChance
       && Number((Number(NormalAttack.StatusChance) * 100).toFixed(2)),
