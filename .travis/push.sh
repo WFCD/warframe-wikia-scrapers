@@ -22,7 +22,7 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
   }
     
   upload_files() {
-    git remote add origin-update https://${GH_TOKEN}@github.com/WFCD/warframe-worldstate-data.git > /dev/null 2>&1
+    git remote add origin-update https://${GH_TOKEN}@github.com/WFCD/warframe-worldstate-data.git
     git push --quiet --set-upstream  origin-update scraper-travis-test
   }
     
