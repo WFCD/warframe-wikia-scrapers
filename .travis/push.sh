@@ -13,7 +13,7 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
   }
 
   commit_worldstate_data_files() {
-    git clone https://github.com/WFCD/warframe-wikia-scrapers.git
+    git clone https://github.com/WFCD/warframe-worldstate-data.git
     cd warframe-worldstate-data
     git checkout -b scraper-travis-test
     cp ../build/weapondatafinal.json data/weapons.json
