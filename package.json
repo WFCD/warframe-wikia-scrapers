@@ -4,7 +4,7 @@
   "description": "Scrapes lua files on the Warframe wiki for the latest warframe, weapon and mod data, and outputs JSON files to be used with the warframe-world-status API.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --report lcovonly mocha && cat ./coverage/lcov.info | codacy-coverage --username TobiTenno --projectName warframe-wikia-scrapers && rm -rf ./coverage",
+    "test": "node index.js && nyc --report lcovonly mocha && cat ./coverage/lcov.info | codacy-coverage --username TobiTenno --projectName warframe-wikia-scrapers && rm -rf ./coverage",
     "start": "node index.js"
   },
   "author": "Chris Dadabo",
