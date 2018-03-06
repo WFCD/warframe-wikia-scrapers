@@ -1,4 +1,4 @@
-# warframe-wikia-scraper [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f211cdbe9d3849db8414e79eec067477)](https://www.codacy.com/app/CMDadabo/warframe-wikia-scrapers?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CMDadabo/warframe-wikia-scrapers&amp;utm_campaign=Badge_Grade)
+# warframe-wikia-scraper [![Codacy Badge](https://api.codacy.com/project/badge/Grade/49bcaa7e341543f3971a73105d9d5d81)](https://www.codacy.com/app/WFCD/warframe-wikia-scrapers?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WFCD/warframe-wikia-scrapers&amp;utm_campaign=Badge_Grade)
 
 
 ### Running
