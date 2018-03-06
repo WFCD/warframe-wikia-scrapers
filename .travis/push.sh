@@ -15,7 +15,7 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
   commit_worldstate_data_files() {
     git clone https://github.com/WFCD/warframe-worldstate-data.git
     cd warframe-worldstate-data
-    git checkout -b scraper-travis-test
+    git checkout -b travis-$TRAVIS_BUILD_NUMBER
     cp ../build/weapondatafinal.json data/weapons.json
     git add data/weapons.json
     git commit --message "Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
@@ -23,7 +23,7 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
     
   upload_files() {
     git remote add origin-update https://${GH_TOKEN}@github.com/WFCD/warframe-worldstate-data.git
-    git push --quiet --set-upstream  origin-update scraper-travis-test
+    git push --quiet --set-upstream  origin-update travis-$TRAVIS_BUILD_NUMBER
   }
     
   setup_git
