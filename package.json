@@ -46,5 +46,9 @@
       "index.js",
       "transformWeapon.js"
     ]
+  },
+  "engines": {
+    "node": ">=8.9.0"
+    "yarn": "^1.5.1"
   }
 }
