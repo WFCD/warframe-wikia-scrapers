@@ -1,7 +1,6 @@
 #!/bin/bash
-
 if [ "$TRAVIS_BRANCH" == "master" ]; then
-  BRANCH="MASTER"
+  BRANCH="master"
 else
   BRANCH="travis-$TRAVIS_BUILD_NUMBER"
 fi
@@ -10,8 +9,6 @@ setup_git() {
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "Travis CI"
   git clone https://github.com/WFCD/warframe-worldstate-data.git
-  cd warframe-worldstate-data
-  git checkout -b $BRANCH
 }
 
 prepare_json() {
@@ -19,6 +16,8 @@ prepare_json() {
 }
 
 commit_worldstate_data_files() {
+  cd warframe-worldstate-data
+  git checkout -b $BRANCH
   cp ../build/weapondatafinal.json data/weapons.json
   git add data/weapons.json
   git commit --message "Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
