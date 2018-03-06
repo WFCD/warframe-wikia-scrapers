@@ -143,9 +143,9 @@ const transformWeapon = (oldWeapon, imageUrls) => {
   } else if (Type === 'Melee') {
     newWeapon = {
       ...newWeapon,
-      slide: `${SlideAttack}${SlideElement ? ELEMENTS[SlideElement] : undefined}`,
-      jump: `${JumpAttack}${JumpElement ? ELEMENTS[JumpElement] : undefined}`,
-      wall: `${WallAttack}${WallElement ? ELEMENTS[WallElement] : undefined}`,
+      slide: `${SlideAttack}${SlideElement ? ELEMENTS[SlideElement] : ''}`,
+      jump: `${JumpAttack}${JumpElement ? ELEMENTS[JumpElement] : ''}`,
+      wall: `${WallAttack}${WallElement ? ELEMENTS[WallElement] : ''}`,
       channeling: ChannelMult || 1.5,
     };
   }
