@@ -3,6 +3,9 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
   setup_git() {
     git config --global user.email "travis@travis-ci.org"
     git config --global user.name "Travis CI"
+    git clone git@github.com:WFCD/warframe-worldstate-data.git
+    cd warframe-worldstate-data
+    git checkout -b scraper-travis-test
   }
  
   prepare_json() {
@@ -10,7 +13,7 @@ if [ "$TRAVIS_BRANCH" == "reporting" ]; then
   }
 
   commit_worldstate_data_files() {
-    git clone git@github.com:WFCD/warframe-worldstate-data.git
+    git clone ${GH_TOKEN}@github.com:WFCD/warframe-worldstate-data.git
     cd warframe-worldstate-data
     git checkout -b scraper-travis-test
     cp ../build/weapondatafinal.json data/weapons.json
