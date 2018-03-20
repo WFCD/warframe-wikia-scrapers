@@ -53,7 +53,7 @@ const transformWeapon = (oldWeapon, imageUrls) => {
     ChargeAttack,
   } = oldWeapon;
 
-  let { Name } = oldWeapon;
+  const { Name } = oldWeapon;
 
   let newWeapon = {
     regex: `^${Name.toLowerCase().replace(/\s/g, '\\s')}$`,

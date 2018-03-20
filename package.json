@@ -4,7 +4,7 @@
   "description": "Scrapes lua files on the Warframe wiki for the latest warframe, weapon and mod data, and outputs JSON files to be used with the warframe-world-status API.",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js && mocha",
+    "test": "node index.js && nyc --report lcovonly mocha && cat ./coverage/lcov.info | codacy-coverage --username TobiTenno --projectName warframe-wikia-scrapers && rm -rf ./coverage",
     "start": "node index.js"
   },
   "author": "Chris Dadabo",
@@ -12,19 +12,43 @@
   "dependencies": {
     "axios": "^0.17.1",
     "cheerio": "^1.0.0-rc.2",
+    "codacy-coverage": "^2.1.0",
     "fs-extra": "^5.0.0",
     "lua.vm.js": "^0.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
     "node-cmd": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "cross-env": "^5.1.3",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^5.0.1"
+    "mocha": "^5.0.2",
+    "nyc": "^11.5.0"
   },
-  "repository": "https://github.com/wfcd/warframe-wikia-scrapers"
+  "repository": "https://github.com/wfcd/warframe-wikia-scrapers",
+  "nyc": {
+    "lines": 50,
+    "statements": 50,
+    "functions": 50,
+    "branches": 50,
+    "reporter": [
+      "lcov"
+    ],
+    "check-coverage": true,
+    "report-dir": "./coverage",
+    "cache": false,
+    "all": true,
+    "include": [
+      "index.js",
+      "transformWeapon.js"
+    ]
+  },
+  "engines": {
+    "node": ">=8.9.0",
+    "yarn": "^1.5.1"
+  }
 }

@@ -1,5 +1,9 @@
 'use strict';
 
+// requiring for test usage
+require('../index.js');
+// end required coverage files
+
 const fs = require('fs-extra');
 
 const { assert } = require('chai');
