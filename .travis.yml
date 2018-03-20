@@ -5,6 +5,7 @@ before_install:
   - sudo apt-get install lua5.2
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.5.1
   - export PATH="$HOME/.yarn/bin:$PATH"
+  - printf "registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 after_success:
   - chmod +x .travis/push.sh
   - ./.travis/push.sh
