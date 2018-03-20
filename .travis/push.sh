@@ -18,7 +18,7 @@ prepare_json() {
 
 commit_worldstate_data_files() {
   cd warframe-worldstate-data
-  if [ "$BRANCH" == "master"]
+  if [ "$BRANCH" == "master"]; then
     git checkout $BRANCH
   else
     git checkout -b $BRANCH
@@ -44,7 +44,7 @@ publish_worldstate_data() {
 update_warframe_status() {
   echo "Updating Warframe-Status"
   cd ../warframe-status
-  if [ "$BRANCH" == "master"]
+  if [ "$BRANCH" == "master"]; then
     git checkout $BRANCH
   else
     git checkout -b $BRANCH
