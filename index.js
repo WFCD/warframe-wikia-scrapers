@@ -114,8 +114,15 @@ async function main() {
 
   imageUrls = await getWeaponImageUrls(weapondata.Weapons);
 
-  const weapons = Object.keys(weapondata.Weapons).map(weaponName =>
-    transformWeapon(weapondata.Weapons[weaponName], imageUrls));
+  let weapons = [];
+  try {
+    weapons = Object.keys(weapondata.Weapons).map(weaponName =>
+    transformWeapon(weapondata.Weapons[weaponName], imageUrls))
+    .filter(weapon => typeof weapon !== 'undefined');  
+  } catch (e) {
+    console.error(e);
+  }
+  
 
   if (!await fs.exists('./build')) {
     await fs.mkdir('./build');
