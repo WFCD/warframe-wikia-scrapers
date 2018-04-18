@@ -208,9 +208,9 @@ const transformWeapon = (oldWeapon, imageUrls) => {
         shot_type: SecondaryAttack.ShotType,
         shot_speed: SecondaryAttack.ShotSpeed
           && Number(Number(SecondaryAttack.ShotSpeed).toFixed(1))
-       };
+      };
        
-       if (SecondaryAttack.PelletName) {
+      if (SecondaryAttack.PelletName) {
         newWeapon.secondary.pellet = {
           name: SecondaryAttack.PelletName,
           count: SecondaryAttack.PelletCount,
