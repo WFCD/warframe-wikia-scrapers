@@ -7,6 +7,11 @@ const ELEMENTS = {
   Heat: 'heat',
   Blast: 'blast',
   Radiation: 'radiation',
+  Cold: 'cold',
+  Viral: 'viral',
+  Magnetic: 'magnetic',
+  Gas: 'gas',
+  Void: 'void',
 };
 
 const POLARITIES = {
@@ -56,9 +61,15 @@ const transformWeapon = (oldWeapon, imageUrls) => {
       Image,
       Trigger,
       ChargeAttack,
+      SecondaryAttack,
+      SecondaryAreaAttack,
     } = oldWeapon;
   
     const { Name } = oldWeapon;
+    
+    if (oldWeapon.Secondary) {
+      console.log(oldWeapon.Secondary);
+    }
 
     newWeapon = {
       regex: `^${Name.toLowerCase().replace(/\s/g, '\\s')}$`,
@@ -95,7 +106,7 @@ const transformWeapon = (oldWeapon, imageUrls) => {
       ...(NormalAttack && NormalAttack.FireRate)
         && { rate: Number(NormalAttack.FireRate.toFixed(1)) },
     };
-  
+
     if (NormalAttack) {
       newWeapon.damage = Object.keys(NormalAttack.Damage).reduce(
         (sum, damageType) => NormalAttack.Damage[damageType] + sum,
@@ -122,6 +133,17 @@ const transformWeapon = (oldWeapon, imageUrls) => {
       'Impact',
       'Slash',
       'Puncture',
+      'Heat',
+      'Cold',
+      'Electricity',
+      'Toxin',
+      'Viral',
+      'Corrosive',
+      'Radiation',
+      'Blast',
+      'Magnetic',
+      'Gas',
+      'Void',
     ];
     if (NormalAttack && NormalAttack.Damage) {
       damageTypes.forEach((damageType) => {
@@ -137,6 +159,77 @@ const transformWeapon = (oldWeapon, imageUrls) => {
         newWeapon[damageType.toLowerCase()] = ChargeAttack.Damage[damageType] ? Number(ChargeAttack.Damage[damageType].toFixed(2).replace(/(\.[\d]+)0/, '$1')) : undefined;
       });
     }
+    
+    if (SecondaryAreaAttack) {
+      newWeapon.secondaryArea = {
+        name: SecondaryAreaAttack.AttackName,
+        status_chance: SecondaryAreaAttack && SecondaryAreaAttack.StatusChance
+          && Number((Number(SecondaryAreaAttack.StatusChance) * 100).toFixed(2)),
+        duration: SecondaryAreaAttack && SecondaryAreaAttack.Duration
+          && Number((Number(SecondaryAreaAttack.Duration) * 100).toFixed(2)),
+        radius: SecondaryAreaAttack && SecondaryAreaAttack.Radius
+          && Number((Number(SecondaryAreaAttack.Radius) * 100).toFixed(2)),
+        speed: SecondaryAreaAttack && SecondaryAreaAttack.FireRate,
+      };
+      
+      if (SecondaryAreaAttack.PelletName) {
+        newWeapon.secondaryArea.pellet = {
+          name: SecondaryAreaAttack.PelletName,
+          count: SecondaryAreaAttack.PelletCount,
+        };
+      }
+      
+      
+      // Convert damage numbers and names
+      if (SecondaryAreaAttack.Damage) {
+        damageTypes.forEach((damageType) => {
+          newWeapon.secondaryArea[damageType.toLowerCase()] = SecondaryAreaAttack.Damage[damageType] ? Number(SecondaryAreaAttack.Damage[damageType].toFixed(2).replace(/(\.[\d]+)0/, '$1')) : undefined;
+        });
+        Object.keys(ELEMENTS).forEach((element) => {
+          if (SecondaryAreaAttack.Damage[element]) {
+            newWeapon.secondaryArea.damage = `${SecondaryAreaAttack.Damage[element].toFixed(2).replace(/(\.[\d]+)0/, '$1')} ${ELEMENTS[element]}`;
+          }
+        });
+      }
+    }
+    
+    if (SecondaryAttack) {
+      newWeapon.secondary = {
+        name: SecondaryAttack.AttackName,
+        speed: SecondaryAttack.FireRate,
+        crit_chance: SecondaryAttack.CritChance
+          && Number((Number(SecondaryAttack.CritChance) * 100).toFixed(2)),
+        crit_mult: SecondaryAttack.CritMultiplier
+          && Number(Number(SecondaryAttack.CritMultiplier).toFixed(1)),
+        status_chance: SecondaryAttack && SecondaryAttack.StatusChance
+          && Number(Number(SecondaryAttack.StatusChance).toFixed(1)),
+        charge_time: SecondaryAttack.ChargeTime
+          && Number(Number(SecondaryAttack.ChargeTime).toFixed(1)),
+        shot_type: SecondaryAttack.ShotType,
+        shot_speed: SecondaryAttack.ShotSpeed
+          && Number(Number(SecondaryAttack.ShotSpeed).toFixed(1))
+      };
+       
+      if (SecondaryAttack.PelletName) {
+        newWeapon.secondary.pellet = {
+          name: SecondaryAttack.PelletName,
+          count: SecondaryAttack.PelletCount,
+        };
+      }
+       
+      // Convert damage numbers and names
+      if (SecondaryAttack.Damage) {
+        damageTypes.forEach((damageType) => {
+          newWeapon.secondary[damageType.toLowerCase()] = SecondaryAttack.Damage[damageType] ? Number(SecondaryAttack.Damage[damageType].toFixed(2).replace(/(\.[\d]+)0/, '$1')) : undefined;
+        });
+        Object.keys(ELEMENTS).forEach((element) => {
+          if (SecondaryAttack.Damage[element]) {
+            newWeapon.secondary.damage = `${SecondaryAttack.Damage[element].toFixed(2).replace(/(\.[\d]+)0/, '$1')} ${ELEMENTS[element]}`;
+          }
+        });
+      }
+    }
+  
   
     if ((Type === 'Primary' || Type === 'Secondary') && NormalAttack) {
       newWeapon = {
