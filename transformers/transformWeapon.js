@@ -62,7 +62,7 @@ const transformWeapon = (oldWeapon, imageUrls) => {
       Trigger,
       ChargeAttack,
       SecondaryAttack,
-      SecondaryAreaAttack
+      SecondaryAreaAttack,
     } = oldWeapon;
   
     const { Name } = oldWeapon;
@@ -194,20 +194,20 @@ const transformWeapon = (oldWeapon, imageUrls) => {
     }
     
     if (SecondaryAttack) {
-       newWeapon.secondary = {
-          name: SecondaryAttack.AttackName,
-          speed: SecondaryAttack.FireRate,
-          crit_chance: SecondaryAttack.CritChance
-            && Number((Number(SecondaryAttack.CritChance) * 100).toFixed(2)),
-          crit_mult: SecondaryAttack.CritMultiplier
-            && Number(Number(SecondaryAttack.CritMultiplier).toFixed(1)),
-          status_chance: SecondaryAttack && SecondaryAttack.StatusChance
-            && Number(Number(SecondaryAttack.StatusChance).toFixed(1)),
-          charge_time: SecondaryAttack.ChargeTime
-            && Number(Number(SecondaryAttack.ChargeTime).toFixed(1)),
-          shot_type: SecondaryAttack.ShotType,
-          shot_speed: SecondaryAttack.ShotSpeed
-            && Number(Number(SecondaryAttack.ShotSpeed).toFixed(1))
+      newWeapon.secondary = {
+        name: SecondaryAttack.AttackName,
+        speed: SecondaryAttack.FireRate,
+        crit_chance: SecondaryAttack.CritChance
+          && Number((Number(SecondaryAttack.CritChance) * 100).toFixed(2)),
+        crit_mult: SecondaryAttack.CritMultiplier
+          && Number(Number(SecondaryAttack.CritMultiplier).toFixed(1)),
+        status_chance: SecondaryAttack && SecondaryAttack.StatusChance
+          && Number(Number(SecondaryAttack.StatusChance).toFixed(1)),
+        charge_time: SecondaryAttack.ChargeTime
+          && Number(Number(SecondaryAttack.ChargeTime).toFixed(1)),
+        shot_type: SecondaryAttack.ShotType,
+        shot_speed: SecondaryAttack.ShotSpeed
+          && Number(Number(SecondaryAttack.ShotSpeed).toFixed(1))
        };
        
        if (SecondaryAttack.PelletName) {
@@ -217,8 +217,8 @@ const transformWeapon = (oldWeapon, imageUrls) => {
         };
       }
        
-       // Convert damage numbers and names
-       if (SecondaryAttack.Damage) {
+      // Convert damage numbers and names
+      if (SecondaryAttack.Damage) {
         damageTypes.forEach((damageType) => {
           newWeapon.secondary[damageType.toLowerCase()] = SecondaryAttack.Damage[damageType] ? Number(SecondaryAttack.Damage[damageType].toFixed(2).replace(/(\.[\d]+)0/, '$1')) : undefined;
         });
