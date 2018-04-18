@@ -5,7 +5,7 @@ const cmd = require('node-cmd');
 const fs = require('fs-extra');
 const cheerio = require('cheerio');
 
-const transformWeapon = require('./transformWeapon');
+const transformWeapon = require('./transformers/transformWeapon');
 
 let imageUrls;
 
