@@ -118,7 +118,7 @@ async function mainF() {
 
   try {
     warframes = Object.keys(warframedata.Warframes).map(warframeName =>
-      transformWarframe(warframedata.Warframes[warframeName], imageUrls))
+      transformWarframe(warframedata.Warframes[warframeName], imageFUrls))
       .filter(warframe => typeof warframe !== 'undefined');
   } catch (e) {
     console.error(e);
