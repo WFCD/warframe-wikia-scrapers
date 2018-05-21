@@ -107,7 +107,7 @@ const getWarframeImageUrls = async (warframes) => {
   }
 };
 
-async function main () {
+async function main() {
   const luaFramedata = await getLuaFrameData();
   const warframedata = JSON.parse(await convertFrameDataToJson(luaFramedata));
   imageUrls = await getWarframeImageUrls(warframedata.Warframes);

@@ -108,7 +108,7 @@ const getWeaponImageUrls = async (weapons) => {
   }
 };
 
-async function main () {
+async function main() {
   const luaWeapondata = await getLuaWeaponData();
   const weapondata = JSON.parse(await convertWeaponDataToJson(luaWeapondata));
 
@@ -117,11 +117,12 @@ async function main () {
   let weapons = [];
   try {
     weapons = Object.keys(weapondata.Weapons).map(weaponName =>
-      transformWeapon(weapondata.Weapons[weaponName], imageUrls))
-      .filter(weapon => typeof weapon !== 'undefined');
+    transformWeapon(weapondata.Weapons[weaponName], imageUrls))
+    .filter(weapon => typeof weapon !== 'undefined');
   } catch (e) {
     console.error(e);
   }
+
 
   if (!await fs.exists('./build')) {
     await fs.mkdir('./build');
