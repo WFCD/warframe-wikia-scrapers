@@ -21,14 +21,13 @@ const getLuaFrameData = async () => {
   }
 };
 
-  const convertFrameDataToJson = async (luaFramedata) => {
+const convertFrameDataToJson = async (luaFramedata) => {
   const scriptlines = luaFramedata.split('\n');
 
   // Remove return statement
   const modifiedScript = scriptlines
     .slice(0, scriptlines.length - 2)
     .join('\n');
-    
 
   // Add JSON conversion
   const luaToJsonScript = `
@@ -36,7 +35,6 @@ const getLuaFrameData = async () => {
     ${modifiedScript}\n
     print(JSON:encode(WarframeData))
   `;
-  //console.error(luaToJsonScript);
 
   // Run updated JSON lua script
   if (!await fs.exists('./tmp')) {
@@ -48,7 +46,6 @@ const getLuaFrameData = async () => {
   });
 
   try {
-
     await new Promise((resolve, reject) => cmd.get('lua ./tmp/framedataToJson.lua > ./tmp/framedataraw.json', (err) => {
       if (!err) {
         resolve();
@@ -62,9 +59,7 @@ const getLuaFrameData = async () => {
     console.error(err);
   }
   const warframedataRaw = await fs.readFile('./tmp/framedataraw.json', 'UTF-8');
-  
   return warframedataRaw;
-  
 };
 
 const getWarframeImageUrls = async (warframes) => {
@@ -72,8 +67,6 @@ const getWarframeImageUrls = async (warframes) => {
   Object.keys(warframes).forEach((warframeName) => {
     titles.push(`File:${warframes[warframeName].Image}`);
   });
-  
-
   // Split titles into batches of 50, the max allowed by the wikimedia API
   const titleBatches = [];
   while (titles.length > 0) {
@@ -114,27 +107,25 @@ const getWarframeImageUrls = async (warframes) => {
   }
 };
 
-async function main() {
+async function main () {
   const luaFramedata = await getLuaFrameData();
   const warframedata = JSON.parse(await convertFrameDataToJson(luaFramedata));
-  //console.error(warframedata.Warframes.Ash);
   imageUrls = await getWarframeImageUrls(warframedata.Warframes);
 
   let warframes = [];
-  
+
   try {
     warframes = Object.keys(warframedata.Warframes).map(warframeName =>
-    transformWarframe(warframedata.Warframes[warframeName], imageUrls))
-    .filter(warframe => typeof warframe !== 'undefined');  
+      transformWarframe(warframedata.Warframes[warframeName], imageUrls))
+      .filter(warframe => typeof warframe !== 'undefined');
   } catch (e) {
     console.error(e);
   }
-  
 
   if (!await fs.exists('./build')) {
     await fs.mkdir('./build');
   }
-  
+
   fs.writeFile('./build/framedatafinal.json', JSON.stringify(warframes));
   fs.remove('./tmp');
 }

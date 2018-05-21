@@ -1,19 +1,5 @@
 'use strict';
 
-const ELEMENTS = {
-  Electricity: 'electricity',
-  Corrosive: 'corrosive',
-  Toxin: 'toxin',
-  Heat: 'heat',
-  Blast: 'blast',
-  Radiation: 'radiation',
-  Cold: 'cold',
-  Viral: 'viral',
-  Magnetic: 'magnetic',
-  Gas: 'gas',
-  Void: 'void',
-};
-
 const POLARITIES = {
   Bar: 'naramon',
   V: 'madurai',
@@ -21,7 +7,6 @@ const POLARITIES = {
 };
 
 const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
-  
   const outputFrame = { ...targetWeapon };
   if (AuraPolarity) {
     outputFrame.AuraPolarity = POLARITIES[AuraPolarity];
@@ -35,7 +20,6 @@ const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
 };
 
 const transformWarframe = (oldFrame, imageUrls) => {
-  
   let newFrame;
   if (!oldFrame || !oldFrame.Name) {
     return undefined;
@@ -54,12 +38,9 @@ const transformWarframe = (oldFrame, imageUrls) => {
       Sprint,
       Introduced,
       Sex,
-      Vaulted,
+      // Vaulted,
     } = oldFrame;
-  
     const { Name } = oldFrame;
-    
-
 
     newFrame = {
       regex: `^${Name.toLowerCase().replace(/\s/g, '\\s')}$`,
@@ -77,34 +58,14 @@ const transformWarframe = (oldFrame, imageUrls) => {
       Sprint: Sprint,
       Introduced: Introduced,
       Sex: Sex,
-      //Vaulted: Vaulted,
+      // Vaulted: Vaulted,
     };
-   
-  
-  
-    const damageTypes = [
-      'Impact',
-      'Slash',
-      'Puncture',
-      'Heat',
-      'Cold',
-      'Electricity',
-      'Toxin',
-      'Viral',
-      'Corrosive',
-      'Radiation',
-      'Blast',
-      'Magnetic',
-      'Gas',
-      'Void',
-    ];
-    
+
     newFrame = transformPolarities(oldFrame, newFrame);
   } catch (error) {
     console.error(`Error parsing ${oldFrame.Name}`);
     console.error(error);
   }
-  //console.error(newFrame);
 
   return newFrame;
 };
