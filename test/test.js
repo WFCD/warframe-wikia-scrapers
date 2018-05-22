@@ -13,8 +13,8 @@ let weaponData;
 let warframedataRaw;
 let WarframeData;
 
-describe('Output file', () => {
-  it('should contain a valid, nonempty JSON array of objectsfor weapons:', async () => {
+describe('Output weapons file', () => {
+  it('should contain a valid, nonempty JSON array of objects for weapons:', async () => {
     try {
       weaponDataRaw = await fs.readFile('build/weapondatafinal.json');
     } catch (err) {
@@ -34,7 +34,7 @@ describe('Output file', () => {
     console.dir(weaponData[0]);
   });
 });
-describe('Output file', () => {
+describe('Output frames file', () => {
   it('should contain a valid, nonempty JSON array of objects for frames:', async () => {
     try {
       warframedataRaw = await fs.readFile('build/framedatafinal.json');
