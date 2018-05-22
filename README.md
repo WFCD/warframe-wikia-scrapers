@@ -13,8 +13,6 @@
 
 4. Run. `node index.js`
 
-5. Run. `node frames.js`
-
 ## Contributing
 
 See CONTRIBUTING.md for more info.
