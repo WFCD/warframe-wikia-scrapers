@@ -12,3 +12,6 @@ after_success:
   - ./.travis/push.sh
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
+script:
+  - chmod +x .travis/test.sh
+  - ./.travis/test.sh
