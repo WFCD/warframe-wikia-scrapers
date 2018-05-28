@@ -1,5 +1,8 @@
 'use strict';
 
+const getColors = require('get-image-colors');
+const imageDownloader = require('image-downloader');
+
 const POLARITIES = {
   Bar: 'naramon',
   V: 'madurai',
@@ -18,6 +21,26 @@ const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
   }
   return outputFrame;
 };
+async function mapColors(oldFrame) {
+  const colored = [];
+  try {
+
+      const coloredComponent = oldFrame;
+      const imgUrl = `https://nexus-stats.com/img/generic/Blueprint-min.png`;
+      const options = {
+        url: imgUrl,
+        dest: `${__dirname}/Blueprint-min.png`,
+      };
+      const { image } = await imageDownloader.image(options);
+      const colors = await getColors(image, 'image/png');
+      const col2 = typeof colors !== 'undefined' ? colors[0].hex().replace('#', '0x') : 0xff0000;
+console.log(col2);
+    return col2;
+  } catch (e) {
+    this.logger.error(e);
+    return "Failed";
+  }
+}
 
 const transformWarframe = (oldFrame, imageUrls) => {
   let newFrame;
@@ -38,6 +61,7 @@ const transformWarframe = (oldFrame, imageUrls) => {
       Sprint,
       Introduced,
       Sex,
+      Color
       // Vaulted,
     } = oldFrame;
     const { Name } = oldFrame;
@@ -58,6 +82,7 @@ const transformWarframe = (oldFrame, imageUrls) => {
       sprint: Sprint,
       introduced: Introduced,
       sex: Sex,
+      color: mapColors(oldFrame),
       // Vaulted: Vaulted,
     };
 
@@ -66,7 +91,7 @@ const transformWarframe = (oldFrame, imageUrls) => {
     console.error(`Error parsing ${oldFrame.Name}`);
     console.error(error);
   }
-
+console.log(newFrame);
   return newFrame;
 };
 
