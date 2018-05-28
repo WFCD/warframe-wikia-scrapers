@@ -117,7 +117,7 @@ async function mainF() {
   let warframes = [];
 
   try {
-    warframes = Object.keys(warframedata.Warframes).map(warframeName =>
+    warframes = Object.keys(warframedata.Warframes).map(async warframeName =>
       transformWarframe(warframedata.Warframes[warframeName], imageFUrls))
       .filter(warframe => typeof warframe !== 'undefined');
   } catch (e) {
@@ -240,8 +240,8 @@ async function main() {
   let weapons = [];
   try {
     weapons = Object.keys(weapondata.Weapons).map(weaponName =>
-    transformWeapon(weapondata.Weapons[weaponName], imageUrls))
-    .filter(weapon => typeof weapon !== 'undefined');
+      transformWeapon(weapondata.Weapons[weaponName], imageUrls))
+      .filter(weapon => typeof weapon !== 'undefined');
   } catch (e) {
     console.error(e);
   }

@@ -21,28 +21,23 @@ const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
   }
   return outputFrame;
 };
-async function mapColors(oldFrame) {
-  const colored = [];
+const mapColors = async (oldFrame, imageUrl) => {
+  if (!imageUrl) return 0;
   try {
-
-      const coloredComponent = oldFrame;
-      const imgUrl = `https://nexus-stats.com/img/generic/Blueprint-min.png`;
-      const options = {
-        url: imgUrl,
-        dest: `${__dirname}/Blueprint-min.png`,
-      };
-      const { image } = await imageDownloader.image(options);
-      const colors = await getColors(image, 'image/png');
-      const col2 = typeof colors !== 'undefined' ? colors[0].hex().replace('#', '0x') : 0xff0000;
-console.log(col2);
-    return col2;
+    const options = {
+      url: imageUrl,
+      dest: `${__dirname}/temp-${encodeURIComponent(imageUrl)}.png`,
+    };
+    const { image } = await imageDownloader.image(options);
+    const colors = await getColors(image, 'image/png');
+    return typeof colors !== 'undefined' ? colors[0].hex().replace('#', '0x') : 0xff0000;
   } catch (e) {
-    this.logger.error(e);
-    return "Failed";
+    console.error(e);
+    return 0;
   }
-}
+};
 
-const transformWarframe = (oldFrame, imageUrls) => {
+const transformWarframe = async (oldFrame, imageUrls) => {
   let newFrame;
   if (!oldFrame || !oldFrame.Name) {
     return undefined;
@@ -61,8 +56,7 @@ const transformWarframe = (oldFrame, imageUrls) => {
       Sprint,
       Introduced,
       Sex,
-      Color
-      // Vaulted,
+      Vaulted,
     } = oldFrame;
     const { Name } = oldFrame;
 
@@ -82,8 +76,8 @@ const transformWarframe = (oldFrame, imageUrls) => {
       sprint: Sprint,
       introduced: Introduced,
       sex: Sex,
-      color: mapColors(oldFrame),
-      // Vaulted: Vaulted,
+      color: parseInt(await mapColors(oldFrame, imageUrls[Image]), 16),
+      vaulted: Vaulted || undefined,
     };
 
     newFrame = transformPolarities(oldFrame, newFrame);
@@ -91,7 +85,6 @@ const transformWarframe = (oldFrame, imageUrls) => {
     console.error(`Error parsing ${oldFrame.Name}`);
     console.error(error);
   }
-console.log(newFrame);
   return newFrame;
 };
 
