@@ -24,13 +24,13 @@ describe('Output weapons file', () => {
     try {
       weaponData = JSON.parse(weaponDataRaw);
       assert.typeOf(weaponData[0], 'object', 'json ');
+      assert.typeOf(weaponData[0].name, 'string', 'json ');
     } catch (err) {
       assert.fail(err);
     }
   });
 
   after(() => {
-    console.log();
     console.dir(weaponData[0]);
   });
 });
@@ -45,13 +45,13 @@ describe('Output frames file', () => {
     try {
       WarframeData = JSON.parse(warframedataRaw);
       assert.typeOf(WarframeData[0], 'object', 'json ');
+      assert.typeOf(WarframeData[0].name, 'string', 'name ');
     } catch (err) {
       assert.fail(err);
     }
   });
 
   after(() => {
-    console.log();
     console.dir(WarframeData[0]);
   });
 });

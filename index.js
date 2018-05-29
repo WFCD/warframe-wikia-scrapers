@@ -117,13 +117,13 @@ async function mainF() {
   let warframes = [];
 
   try {
-    warframes = Object.keys(warframedata.Warframes).map(async warframeName =>
-      transformWarframe(warframedata.Warframes[warframeName], imageFUrls))
-      .filter(warframe => typeof warframe !== 'undefined');
+    const genFrames = await Promise.all(Object.keys(warframedata.Warframes)
+      .map(async warframeName =>
+        transformWarframe(warframedata.Warframes[warframeName], imageFUrls)));
+    warframes = genFrames.filter(warframe => typeof warframe !== 'undefined');
   } catch (e) {
     console.error(e);
   }
-
   if (!await fs.exists('./build')) {
     await fs.mkdir('./build');
   }
