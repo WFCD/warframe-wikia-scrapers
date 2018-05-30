@@ -19,7 +19,6 @@ const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
   } else {
     outputFrame.polarities = [];
   }
-  console.log(outputFrame);
   return outputFrame;
 };
 const mapColors = async (oldFrame, imageUrl) => {
@@ -27,7 +26,7 @@ const mapColors = async (oldFrame, imageUrl) => {
   try {
     const options = {
       url: imageUrl,
-      dest: `${__dirname}/temp-${encodeURIComponent(imageUrl)}.png`,
+      dest: `${__dirname}/tmp/-${encodeURIComponent(imageUrl)}.png`,
     };
     const { image } = await imageDownloader.image(options);
     const colors = await getColors(image, 'image/png');

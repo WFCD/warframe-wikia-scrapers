@@ -113,7 +113,9 @@ async function mainF() {
   const luaFramedata = await getLuaFrameData();
   const warframedata = JSON.parse(await convertFrameDataToJson(luaFramedata));
   imageFUrls = await getWarframeImageUrls(warframedata.Warframes);
-
+  if (!await fs.exists('./transformers/tmp')) {
+    await fs.mkdir('./transformers/tmp');
+  }
   let warframes = [];
 
   try {
@@ -130,6 +132,7 @@ async function mainF() {
 
   fs.writeFile('./build/framedatafinal.json', JSON.stringify(warframes));
   fs.remove('./tmp');
+  fs.remove('./transformers/tmp');
 }
 
 const getLuaWeaponData = async () => {
@@ -234,7 +237,9 @@ const getWeaponImageUrls = async (weapons) => {
 async function main() {
   const luaWeapondata = await getLuaWeaponData();
   const weapondata = JSON.parse(await convertWeaponDataToJson(luaWeapondata));
-
+  if (!await fs.exists('./build')) {
+    await fs.mkdir('./build');
+  }
   imageUrls = await getWeaponImageUrls(weapondata.Weapons);
 
   let weapons = [];
@@ -246,12 +251,7 @@ async function main() {
     console.error(e);
   }
 
-
-  if (!await fs.exists('./build')) {
-    await fs.mkdir('./build');
-  }
   fs.writeFile('./build/weapondatafinal.json', JSON.stringify(weapons));
-  fs.remove('./tmp');
   mainF();
 }
 
