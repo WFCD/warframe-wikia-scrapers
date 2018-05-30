@@ -12,13 +12,14 @@ const POLARITIES = {
 const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
   const outputFrame = { ...targetWeapon };
   if (AuraPolarity) {
-    outputFrame.AuraPolarity = POLARITIES[AuraPolarity];
+    outputFrame.auraPolarity = POLARITIES[AuraPolarity];
   }
   if (Polarities) {
     outputFrame.polarities = Polarities.map(polarity => POLARITIES[polarity]);
   } else {
     outputFrame.polarities = [];
   }
+  console.log(outputFrame);
   return outputFrame;
 };
 const mapColors = async (oldFrame, imageUrl) => {
@@ -79,7 +80,6 @@ const transformWarframe = async (oldFrame, imageUrls) => {
       color: parseInt(await mapColors(oldFrame, imageUrls[Image]), 16),
       vaulted: Vaulted || undefined,
     };
-
     newFrame = transformPolarities(oldFrame, newFrame);
   } catch (error) {
     console.error(`Error parsing ${oldFrame.Name}`);
