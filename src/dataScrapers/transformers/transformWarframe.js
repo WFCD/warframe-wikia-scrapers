@@ -2,6 +2,7 @@
 
 const getColors = require('get-image-colors');
 const imageDownloader = require('image-downloader');
+const fs = require('fs-extra');
 
 const POLARITIES = {
   Bar: 'naramon',
@@ -21,12 +22,14 @@ const transformPolarities = ({ Polarities, AuraPolarity }, targetWeapon) => {
   }
   return outputFrame;
 };
+
 const mapColors = async (oldFrame, imageUrl) => {
   if (!imageUrl) return 0;
+
   try {
     const options = {
       url: imageUrl,
-      dest: `${__dirname}/tmp/-${encodeURIComponent(imageUrl)}.png`,
+      dest: `tmp/tmp-${oldFrame.Name}.png`,
     };
     const { image } = await imageDownloader.image(options);
     const colors = await getColors(image, 'image/png');
@@ -42,6 +45,7 @@ const transformWarframe = async (oldFrame, imageUrls) => {
   if (!oldFrame || !oldFrame.Name) {
     return undefined;
   }
+  
   try {
     const {
       Armor,
