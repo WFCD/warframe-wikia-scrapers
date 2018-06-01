@@ -37,7 +37,7 @@ describe('Output weapons file', () => {
 describe('Output frames file', () => {
   it('should contain a valid, nonempty JSON array of objects for frames:', async () => {
     try {
-      warframedataRaw = await fs.readFile('build/framedatafinal.json');
+      warframedataRaw = await fs.readFile('build/warframedatafinal.json');
     } catch (err) {
       assert.fail(err);
     }
