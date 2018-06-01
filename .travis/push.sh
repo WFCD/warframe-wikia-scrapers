@@ -26,7 +26,7 @@ commit_worldstate_data_files() {
 
   cp ../build/weapondatafinal.json data/weapons.json
   git add data/weapons.json
-  git commit --message "Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
+  git commit --message "chore(automated): Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
 }
   
 upload_files() {
@@ -36,7 +36,7 @@ upload_files() {
 
 publish_worldstate_data() {
   echo "Publishing Worldstate Data"
-  npm version patch -m "Travis build $TRAVIS_BUILD_NUMBER update from warframe-wikia-scrapers"
+  npm version patch -m "chore(automated): Travis build $TRAVIS_BUILD_NUMBER update from warframe-wikia-scrapers"
   npm publish
 }
 
@@ -51,7 +51,7 @@ update_warframe_status() {
   fi
   npm update --save
   git add package.json package-lock.json
-  git commit --message "Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
+  git commit --message "chore(automated): Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
   git remote add origin-update https://${GH_TOKEN}@github.com/WFCD/warframe-status.git
   git push --quiet --set-upstream  origin-update $BRANCH
 }
