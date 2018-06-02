@@ -1,11 +1,13 @@
 {
   "name": "warframe-wikia-scraper",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Scrapes lua files on the Warframe wiki for the latest warframe, weapon and mod data, and outputs JSON files to be used with the warframe-world-status API.",
   "main": "index.js",
   "scripts": {
     "test": "node index.js && mocha",
-    "start": "node index.js"
+    "start": "node index.js",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
   "author": "Chris Dadabo",
   "license": "Apache-2.0",
@@ -31,7 +33,9 @@
     "eslint-plugin-react": "^7.8.2",
     "greenkeeper-lockfile": "^1.15.1",
     "mocha": "^5.2.0",
-    "nyc": "^11.9.0"
+    "nyc": "^11.9.0",
+    "travis-deploy-once": "^5.0.0",
+    "semantic-release": "^15.5.0"
   },
   "repository": "https://github.com/wfcd/warframe-wikia-scrapers",
   "nyc": {

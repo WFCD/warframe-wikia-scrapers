@@ -1,15 +1,29 @@
 language: node_js
+cache:
+  directories:
+    - ~/.npm
+notifications:
+  email: false
 node_js:
-  - "node"
+  - 'node'
+  - '9'
+  - '8'
+  - '6'
+  - '4'
+after_success:
+  - npm run travis-deploy-once "npm run semantic-release"
+  - chmod +x .travis/push.sh
+  - ./.travis/push.sh
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+
 before_install:
   - sudo apt-get install lua5.2
   - printf "registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
   - npm install -g npm
   - npm install -g greenkeeper-lockfile@1
 
-after_success:
-  - chmod +x .travis/push.sh
-  - ./.travis/push.sh
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
