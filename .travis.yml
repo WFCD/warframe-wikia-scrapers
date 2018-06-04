@@ -27,3 +27,6 @@ after_script: greenkeeper-lockfile-upload
 script:
   - chmod +x .travis/test.sh
   - ./.travis/test.sh
+  
+#override npm ci for now
+install: npm install
