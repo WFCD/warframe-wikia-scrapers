@@ -18,6 +18,9 @@ const POLARITIES = {
   Bar: 'naramon',
   V: 'madurai',
   D: 'vazarin',
+  U: 'umbra',
+  Ability: 'zenurik',
+  R: 'unairu',
 };
 
 const transformPolarities = ({ Polarities, StancePolarity }, targetWeapon) => {
