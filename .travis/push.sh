@@ -20,13 +20,12 @@ commit_worldstate_data_files() {
   cd warframe-worldstate-data
   if [ "$BRANCH" == "master"]; then
     git checkout $BRANCH
+    cp ../build/weapondatafinal.json data/weapons.json
+    git add data/weapons.json
+    git commit --message "chore(automated): Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
   else
-    git checkout -b $BRANCH
+    echo "Not the master branch, not committing data to warframe-worldstate-data"
   fi
-
-  cp ../build/weapondatafinal.json data/weapons.json
-  git add data/weapons.json
-  git commit --message "chore(automated): Travis build: warframe-wikia-scrapers $TRAVIS_BUILD_NUMBER"
 }
   
 upload_files() {
