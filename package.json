@@ -33,7 +33,7 @@
     "eslint-plugin-react": "7.12.4",
     "greenkeeper-lockfile": "^1.15.1",
     "mocha": "^6.0.0",
-    "nyc": "^13.2.0",
+    "nyc": "^14.0.0",
     "travis-deploy-once": "5.0.11",
     "semantic-release": "15.9.9"
   },
