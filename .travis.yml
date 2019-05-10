@@ -10,8 +10,8 @@ node_js:
   - '8'
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
-  - chmod +x .travis/push.sh
-  - ./.travis/push.sh
+# - chmod +x .travis/push.sh
+#  - ./.travis/push.sh
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
