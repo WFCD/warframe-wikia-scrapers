@@ -32,7 +32,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "7.14.3",
     "greenkeeper-lockfile": "^1.15.1",
-    "mocha": "^6.0.0",
+    "mocha": "^6.2.2",
     "nyc": "^14.0.0",
     "travis-deploy-once": "5.0.11",
     "semantic-release": "15.13.21"
